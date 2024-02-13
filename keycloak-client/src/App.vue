@@ -8,14 +8,17 @@ const keycloak = new Keycloak({
   realm,
   clientId,
 });
-const { loggedIn, login, profile } = useKeycloak(keycloak);
+const { loggedIn, login, profile, logout } = useKeycloak(keycloak);
 login();
 </script>
 
 <template>
   <div style="text-center">
     <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    <div v-if="loggedIn">welcome {{ profile?.fullName }}</div>
+    <template v-if="loggedIn">
+      <div>welcome {{ profile?.fullName }}</div>
+      <button style="margin-top: 12px" @click="logout()">logout</button>
+    </template>
   </div>
 </template>
 

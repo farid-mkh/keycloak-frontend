@@ -34,5 +34,15 @@ export default function useKeycloak(keycloakInstance: Keycloak) {
             console.error("Failed to load user profile:", error);
         }
     }
-    return { loggedIn, profile, login, getProfile };
+    async function logout() {
+        try {
+            const res = await keycloak.value.logout();
+            console.log(res);
+            loggedIn.value = false;
+            initProfile.value = null;
+        } catch (e) {
+            console.log("logout error: ", e);
+        }
+    }
+    return { loggedIn, profile, login, getProfile, logout };
 }
