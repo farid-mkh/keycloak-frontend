@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+    postgres:
+        image: postgres:latest
+        environment:
+            POSTGRES_DB: your_db_name
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+
+    keycloak:
+        image: quay.io/keycloak/keycloak:23.0.6
+        environment:
+            KEYCLOAK_DB: postgres
+            KEYCLOAK_DB_ADDR: postgres:5432
+            KEYCLOAK_DB_SCHEMA: public
+            KEYCLOAK_DB_USER: root
+            KEYCLOAK_DB_PASSWORD: root
+            KEYCLOAK_ADMIN: admin
+            KEYCLOAK_ADMIN_PASSWORD: admin
+            # Add your Keycloak realm specific environment variables here (e.g., KEYCLOAK_ADMIN_USERNAME, KEYCLOAK_ADMIN_PASSWORD)
+        volumes:
+            - keycloak_data:/opt/jboss/keycloak/data
+        ports:
+            - "8080:8080"
+        command:
+            - start-dev
+
+
+volumes:
+    postgres_data:
+    keycloak_data:
