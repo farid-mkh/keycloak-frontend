@@ -22,11 +22,11 @@ services:
             KEYCLOAK_ADMIN_PASSWORD: admin
             # Add your Keycloak realm specific environment variables here (e.g., KEYCLOAK_ADMIN_USERNAME, KEYCLOAK_ADMIN_PASSWORD)
         volumes:
-            - keycloak_data:/opt/jboss/keycloak/data
+            - ./keycloak/themes:/opt/keycloak/themes
         ports:
             - "8080:8080"
         command:
-            - start-dev
+            - start-dev 
 
 
 volumes:
